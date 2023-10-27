@@ -1,0 +1,36 @@
+{
+   "books": [
+      {
+         "id": 1,
+         "author": "J.R.R. Tolkien",
+         "title": "The Hobbit",
+         "genre": "Fantasy",
+         "pages": 295,
+         "read": "yes"
+      },
+      {
+         "id": 2,
+         "author": "Alexandre Dumas",
+         "title": "The Three Musketeers",
+         "genre": "Adventure",
+         "pages": 700,
+         "read": "yes"
+      },
+      {
+         "id": 3,
+         "author": "Erich Maria Remarque",
+         "title": "Three Comrades",
+         "genre": "War novel",
+         "pages": 255,
+         "read": "yes"
+      },
+      {
+         "id": 4,
+         "author": "James Joyce",
+         "title": "Ulysses",
+         "genre": "Modernist novel",
+         "pages": 732,
+         "read": "no"
+      }
+   ]
+}
