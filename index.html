@@ -34,8 +34,9 @@
                      </select>
                   </div>
                   <div class="header-page__sort">
-                     <select name="sort" id="">
-                        <option value="author" selected>Author</option>
+                     <select name="sort" id="" onchange="sortBooks(this.value)">
+                        <option value="id" selected>Id</option>
+                        <option value="author">Author</option>
                         <option value="title">Title</option>
                         <option value="genre">Genre</option>
                         <option value="pages">Pages</option>

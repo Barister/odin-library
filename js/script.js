@@ -1,7 +1,7 @@
-// let's do the func to download results from json file to the page
+// let's practice the func to download results from json file to the page
 
 let booksCounter = 1;
-const taskLibrary = [];
+let myLibrary = [];
 const table = document.querySelector('.page__body');
 
 if (table) {
@@ -18,13 +18,16 @@ async function loadBooks() {
 
       // console.log(responseResult.books);
 
-      buildBooksList(responseResult.books)
+      buildBooksList(responseResult.books);
+      myLibrary = responseResult.books;
    } else {
       alert("Error while getting to database in books.json");
    }
 }
 
 function buildBooksList(books) {
+
+
 
    // console.log('books:', books);
 
@@ -60,7 +63,7 @@ function buildBooksList(books) {
                
                ${book.read}
             </select>
-            <button class="body-page__item body-page--right-align body-page__item--delete ${highlighted}" id="book-${book.id}"><span title="Delete">x</span></button>   
+            <div class="body-page__item body-page--right-align body-page__item--delete ${highlighted}" id="book-${book.id}"><button title="Delete" onclick="removeBook(event)" data-book="${book.id}">x</button></div>   
 
         
       `;
@@ -68,11 +71,11 @@ function buildBooksList(books) {
 
       table.insertAdjacentHTML('beforeend', rowTemplate);
 
-      booksCounter++;
+      booksCounter = myLibrary.length + 1;
 
       console.log("booksCounter:", booksCounter);
 
-      taskLibrary.push(book);
+      // myLibrary.push(book);
    });
 
 }
@@ -133,61 +136,151 @@ function submitBook(event) {
       read: readInput.value
    };
 
+   let bookArray = [];
+
+   bookArray.push(newBook);
+
+   //console.log('bookArray:', bookArray);
+   //console.log("booksCounter после добавления книги:", booksCounter);
+
+   buildBooksList(bookArray);
+
+   bookArray = [];
+
    myLibrary.push(newBook);
 
-   console.log('myLibrary:', myLibrary);
-   console.log("booksCounter после добавления книги:", booksCounter);
-
-   buildBooksList(myLibrary);
-
-   myLibrary = [];
-   console.log('myLibrary после обнуления:', myLibrary);
+   console.log('bookArray после обнуления:', bookArray);
 }
+
+
 
 // change read option in myLibrary item
 
 function changeRead(event) {
-   console.log(event.target.value);
+   //console.log(event.target.value);
 
 
    let changedId = event.target.id.match(/\d+/)[0];
 
-   console.log('changedId:', changedId);
+   //console.log('changedId:', changedId);
 
-   taskLibrary.forEach(book => {
+   myLibrary.forEach(book => {
 
-      console.log('book.id:', book.id)
+      //console.log('book.id:', book.id)
 
       if (changedId == book.id) {
-         console.log('changedId === book.id:', changedId == book.id)
+         //console.log('changedId === book.id:', changedId == book.id)
          book.read = event.target.value;
       }
    })
 
-   console.log('updated taskLibrary:', taskLibrary);
+   console.log('updated myLibrary after changeRead:', myLibrary);
+
+
+}
+
+
+// let's try to remove chosen book
+
+function removeBook(event) {
+   console.log('removeBook:', event.target.dataset.book);
+
+   console.log('updated myLibrary before removeBook:', myLibrary);
+
+   myLibrary = myLibrary.filter(book => {
+      if (event.target.dataset.book != book.id) {
+
+         //console.log('работа filter():', book);
+
+         return book;
+      }
+   });
+
+   console.log('updated myLibrary after removeBook:', myLibrary);
+
+
+   resetTable();
+
+   buildBooksList(myLibrary);
+
+}
+
+
+// reset table
+
+function resetTable() {
+   const currentTable = table.querySelectorAll('[id^="book-"]');
+
+   //console.log(currentTable);
+   currentTable.forEach(element => {
+      element.remove();
+   })
+
+}
+
+
+// sorting of books
+
+function sortBooks(value) {
+   //console.log('value:', value);
+
+
+
+
+   myLibrary.sort((a, b) => {
+      console.log(a[value], b[value]);
+
+      let valueA;
+      let valueB;
+
+      if (typeof a[value] === 'string') {
+         valueA = a[value].toLowerCase();
+      } else {
+         valueA = a[value];
+      }
+
+      if (typeof b[value] === 'string') {
+         valueB = b[value].toLowerCase();
+      } else {
+         valueB = b[value];
+      }
+
+      console.log(valueA, valueB);
+
+      if (valueA <= valueB) {
+
+         return -1;
+      }
+
+   });
+
+
+   resetTable();
+
+   console.log('updated myLibrary after sortBooks:', myLibrary);
+
+   buildBooksList(myLibrary);
 
 }
 
 
 // the odin tasks
 
-let myLibrary = [
-
-];
 
 
-function Book(title, author, pages, read) {
-   this.title = title
-   this.author = author
-   this.pages = pages
-   this.read = read
 
-   this.info = function () {
-      return `${title} by ${author}, ${pages} pages, ${read}`;
-      //return info;
+// function Book(title, author, pages, read) {
+//    this.title = title
+//    this.author = author
+//    this.pages = pages
+//    this.read = read
 
-   }
-}
+//    this.info = function () {
+//       return `${title} by ${author}, ${pages} pages, ${read}`;
+//       //return info;
+
+//    }
+// }
 
 // function addBookToLibrary() {
 //    // do stuff here

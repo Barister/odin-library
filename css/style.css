@@ -126,6 +126,7 @@ body {
 }
 .page {
   font-size: clamp(1.2rem, 3vw, 1.8rem);
+  margin-bottom: clamp(2rem, 3vw, 4rem);
   /* .page__body */
 }
 .body-page {
@@ -154,10 +155,10 @@ body {
 .body-page__item--delete {
   display: flex;
 }
-.body-page__item--delete span {
+.body-page__item--delete button {
   transition: all 0.2s ease 0s;
 }
-.body-page__item--delete span:hover {
+.body-page__item--delete button:hover {
   transform: scale(1.5);
 }
 .body-page--right-align {

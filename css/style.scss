@@ -182,6 +182,7 @@ $smallMobile: 479.98px;
 
 .page {
    font-size: clamp(1.2rem, 3vw, 1.8rem);
+   margin-bottom: clamp(2.0rem, 3vw, 4.0rem);
 
    /* .page__body */
 
@@ -246,7 +247,7 @@ $smallMobile: 479.98px;
       }
       &--delete {
          display: flex;
-         span {
+         button {
             transition: all 0.2s ease 0s;
             &:hover {
                transform: scale(1.5);
