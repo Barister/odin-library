@@ -1,3 +1,4 @@
+
 // let's practice the func to download results from json file to the page
 
 let booksCounter = 1;
@@ -31,20 +32,13 @@ function buildBooksList(books) {
 
    // console.log('books:', books);
 
-   //const tableLastHeaderTitle = document.querySelector('#last-title');
-
-
    // console.log('bookRow:', bookRow);
    // console.log(bootAuthor);
 
    books.forEach(book => {
 
-      let highlighted = '';
-      let selectedRead = '';
 
-      if (book.id % 2 === 0) {
-         highlighted = 'body-page__item--highlighted';
-      }
+      let selectedRead = '';
 
       if (book.read === 'no') {
          selectedRead = 'selected';
@@ -53,17 +47,19 @@ function buildBooksList(books) {
       const rowTemplate = `
          
 
-            <div class="body-page__item ${highlighted}" data-item="author" id="book-${book.id}">${book.author}</div>
-            <div class="body-page__item ${highlighted}" data-item="title" id="book-${book.id}">${book.title}</div>
-            <div class="body-page__item ${highlighted}" data-item="genre" id="book-${book.id}">${book.genre}</div>
-            <div class="body-page__item body-page--right-align ${highlighted}" data-item="pages" id="book-${book.id}">${book.pages}</div>
-            <select class="body-page__item body-page--right-align ${highlighted}" data-item="read" id="book-${book.id}" onchange="changeRead(event)">
+            <div class="body-page__item" data-item="author" id="book-${book.id}">${book.author}</div>
+            <div class="body-page__item" data-item="title" id="book-${book.id}">${book.title}</div>
+            <div class="body-page__item" data-item="genre" id="book-${book.id}">${book.genre}</div>
+            <div class="body-page__item body-page--right-align" data-item="pages" id="book-${book.id}">${book.pages}</div>
+            <select class="body-page__item body-page--right-align" data-item="read" id="book-${book.id}" onchange="changeRead(event)" title="Did you read it yet?">
                <option value="yes" selected>yes</option>
                <option value="no" ${selectedRead}>no</option>   
-               
-               ${book.read}
             </select>
-            <div class="body-page__item body-page--right-align body-page__item--delete ${highlighted}" id="book-${book.id}"><button title="Delete" onclick="removeBook(event)" data-book="${book.id}">x</button></div>   
+            <div class="body-page__item body-page--right-align body-page__item--delete" id="book-${book.id}">
+               <button title="Delete" onclick="removeBook(event)" data-book="${book.id}">
+                  x
+               </button>
+            </div>   
 
         
       `;
@@ -73,21 +69,12 @@ function buildBooksList(books) {
 
       booksCounter = myLibrary.length + 1;
 
-      console.log("booksCounter:", booksCounter);
+      //console.log("booksCounter:", booksCounter);
 
       // myLibrary.push(book);
    });
 
 }
-
-
-// let's try to upload new books to json-file
-
-// function saveBooks(books) {
-//    const json = JSON.stringify({ books }, null, 2);
-// }
-
-
 
 // popup On and Off
 
@@ -119,13 +106,12 @@ function submitBook(event) {
 
    event.preventDefault();
 
-   //const addButton = document.querySelector('#add-button');
    const authorInput = document.querySelector('#author');
    const titleInput = document.querySelector('#title');
    const genreInput = document.querySelector('#genre');
    const pagesInput = document.querySelector('#pages');
    const readInput = document.querySelector('#read');
-   //const tableBody = document.querySelector('.body-page__list');
+
 
    const newBook = {
       id: booksCounter,
@@ -149,7 +135,7 @@ function submitBook(event) {
 
    myLibrary.push(newBook);
 
-   console.log('bookArray после обнуления:', bookArray);
+   //console.log('bookArray после обнуления:', bookArray);
 }
 
 
@@ -174,7 +160,7 @@ function changeRead(event) {
       }
    })
 
-   console.log('updated myLibrary after changeRead:', myLibrary);
+   //console.log('updated myLibrary after changeRead:', myLibrary);
 
 
 }
@@ -183,9 +169,9 @@ function changeRead(event) {
 // let's try to remove chosen book
 
 function removeBook(event) {
-   console.log('removeBook:', event.target.dataset.book);
+   //console.log('removeBook:', event.target.dataset.book);
 
-   console.log('updated myLibrary before removeBook:', myLibrary);
+   //console.log('updated myLibrary before removeBook:', myLibrary);
 
    myLibrary = myLibrary.filter(book => {
       if (event.target.dataset.book != book.id) {
@@ -196,7 +182,7 @@ function removeBook(event) {
       }
    });
 
-   console.log('updated myLibrary after removeBook:', myLibrary);
+   //console.log('updated myLibrary after removeBook:', myLibrary);
 
 
    resetTable();
@@ -225,10 +211,8 @@ function sortBooks(value) {
    //console.log('value:', value);
 
 
-
-
    myLibrary.sort((a, b) => {
-      console.log(a[value], b[value]);
+      //console.log(a[value], b[value]);
 
       let valueA;
       let valueB;
@@ -245,7 +229,7 @@ function sortBooks(value) {
          valueB = b[value];
       }
 
-      console.log(valueA, valueB);
+      //console.log(valueA, valueB);
 
       if (valueA <= valueB) {
 
@@ -257,36 +241,9 @@ function sortBooks(value) {
 
    resetTable();
 
-   console.log('updated myLibrary after sortBooks:', myLibrary);
+   //console.log('updated myLibrary after sortBooks:', myLibrary);
 
    buildBooksList(myLibrary);
 
 }
 
-
-// the odin tasks
-
-
-
-
-// function Book(title, author, pages, read) {
-//    this.title = title
-//    this.author = author
-//    this.pages = pages
-//    this.read = read
-
-//    this.info = function () {
-//       return `${title} by ${author}, ${pages} pages, ${read}`;
-//       //return info;
-
-//    }
-// }
-
-// function addBookToLibrary() {
-//    // do stuff here
-
-
-
-//    myLibrary.push()
-
-// }

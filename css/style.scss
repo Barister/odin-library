@@ -181,7 +181,7 @@ $smallMobile: 479.98px;
 
 
 .page {
-   font-size: clamp(1.2rem, 3vw, 1.8rem);
+   font-size: clamp(1.4rem, 3vw, 1.8rem);
    margin-bottom: clamp(2.0rem, 3vw, 4.0rem);
 
    /* .page__body */
@@ -192,10 +192,24 @@ $smallMobile: 479.98px;
 .body-page {
    display: grid;
    grid-template-columns: repeat(6, auto);
+   margin-bottom: 40px;
+   overflow-x: auto;
+
+   @media (hover: hover) {
+      &::-webkit-scrollbar {
+         height: 7px;
+         background-color: #f9f9fd;
+       }
+      &::-webkit-scrollbar-thumb {
+         background-color: #BAB7B6;
+      }
+   }
    //grid-template-rows: auto;
    //justify-content: space-between;
    //row-gap: 10px;
    //align-items: center;
+
+   
 
    &__title {
       background-color: #eeeeee;
@@ -232,7 +246,7 @@ $smallMobile: 479.98px;
    }
 
    &__item {
-      padding: 10px clamp(0.5rem, 1vw, 1.0rem);
+      padding: 10px clamp(0.8rem, 3vw, 1.5rem);
       border-bottom: 1px solid #f5f5f5;
       //align-self: stretch;
       display: flex;
@@ -264,6 +278,19 @@ $smallMobile: 479.98px;
       //border: none;
       outline: 0;
    }
+
+
+   &--view2 {
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      justify-content: space-around;
+      gap: 20px;
+   }
+
+   &__card {
+      border: 1px solid #adadad;
+      //border-radius: 5px;
+   }
+
 }
 
 
