@@ -134,7 +134,6 @@ body {
   grid-template-columns: repeat(6, auto);
   margin-bottom: 40px;
   overflow-x: auto;
-  /* .body-page__header */
 }
 @media (hover: hover) {
   .body-page::-webkit-scrollbar {
@@ -154,7 +153,7 @@ body {
   justify-content: flex-end;
 }
 .body-page__item {
-  padding: 10px clamp(0.8rem, 3vw, 1.5rem);
+  padding: 10px clamp(0.8rem, 2vw, 1.5rem);
   border-bottom: 1px solid #f5f5f5;
   display: flex;
   align-items: center;

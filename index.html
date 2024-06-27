@@ -24,7 +24,7 @@
             <div class="page__header header-page">
                <div class="header-page__suggest suggest-page">
                   <div class="suggest-page__title">Feel free to add a book</div>
-                  <button class="suggest-page__btn btn" type="button" onclick="popupOn()">Add book</button>
+                  <button class="suggest-page__btn btn" type="button">Add book</button>
                </div>
                <div class="header-page__control">
                   <!-- <div class="header-page__view">
@@ -34,7 +34,7 @@
                      </select>
                   </div> -->
                   <div class="header-page__sort">
-                     <select name="sort" id="" onchange="sortBooks(this.value)" title="Choose the type of sort">
+                     <select name="sort" id="sort-selection" title="Choose the type of sort">
                         <option value="id" selected>Id</option>
                         <option value="author">Author</option>
                         <option value="title">Title</option>
@@ -57,53 +57,6 @@
                </h5>
 
             </div>
-            <!-- <div class="page__body body-page body-page--view2">
-               <div class="body-page__card">
-                  <div class="body-page__item " data-item="author" id="book-1">J.R.R. Tolkien</div>
-                  <div class="body-page__item " data-item="title" id="book-1">The Hobbit</div>
-                  <div class="body-page__item " data-item="genre" id="book-1">Fantasy</div>
-                  <div class="body-page__item" data-item="pages" id="book-1">295</div>
-                  <select class="body-page__item" data-item="read" id="book-1" onchange="changeRead(event)">
-                     <option value="yes" selected="">yes</option>
-                     <option value="no">no</option>
-
-                     yes
-                  </select>
-                  <div class="body-page__item body-page--right-align body-page__item--delete " id="book-1"><button
-                        title="Delete" onclick="removeBook(event)" data-book="1">x</button></div>
-               </div>
-               <div class="body-page__card">
-                  <div class="body-page__item " data-item="author" id="book-1">J.R.R. Tolkien</div>
-                  <div class="body-page__item " data-item="title" id="book-1">The Hobbit</div>
-                  <div class="body-page__item " data-item="genre" id="book-1">Fantasy</div>
-                  <div class="body-page__item" data-item="pages" id="book-1">295</div>
-                  <select class="body-page__item" data-item="read" id="book-1" onchange="changeRead(event)">
-                     <option value="yes" selected="">yes</option>
-                     <option value="no">no</option>
-
-                     yes
-                  </select>
-                  <div class="body-page__item body-page--right-align body-page__item--delete " id="book-1"><button
-                        title="Delete" onclick="removeBook(event)" data-book="1">x</button></div>
-               </div>
-               <div class="body-page__card">
-                  <div class="body-page__item " data-item="author" id="book-1">J.R.R. Tolkien</div>
-                  <div class="body-page__item " data-item="title" id="book-1">The Hobbit</div>
-                  <div class="body-page__item " data-item="genre" id="book-1">Fantasy</div>
-                  <div class="body-page__item " data-item="pages" id="book-1">295</div>
-                  <select class="body-page__item " data-item="read" id="book-1" onchange="changeRead(event)"
-                     title="Did you read it yet?">
-                     <option value="yes" selected="">yes</option>
-                     <option value="no">no</option>
-
-                     yes
-                  </select>
-                  <div class="body-page__item body-page--right-align body-page__item--delete " id="book-1"><button
-                        title="Delete" onclick="removeBook(event)" data-book="1">x</button></div>
-               </div>
-            </div>
-         </div> -->
-
       </main>
       <div class="popup">
          <form action="" class="popup__form" onsubmit="submitBook(event); this.reset(); return false;">
@@ -141,7 +94,7 @@
 
 
 
-   <script src="js/script.js"></script>
+   <script src="js/main.js"></script>
 </body>
 
 </html>
