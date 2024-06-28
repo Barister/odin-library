@@ -118,7 +118,7 @@ class DatabaseController {
 class ScreenController {
 
    static init(library) {
-      this.cacheDom();
+      this.dom = this.cacheDom();
       this.bindEvents(library);
    }
 
@@ -145,18 +145,18 @@ class ScreenController {
 
    static bindEvents(library) {
 
-      this.cacheDom().buttonPopupOn.addEventListener('click', (event) => {
-         this.cacheDom().submitForm.reset();
+      this.dom.buttonPopupOn.addEventListener('click', (event) => {
+         this.dom.submitForm.reset();
          this.popupOn();
       });
 
-      this.cacheDom().sortSelection.addEventListener('change', library.sortBooksList);
+      this.dom.sortSelection.addEventListener('change', library.sortBooksList);
 
-      this.cacheDom().submitForm.addEventListener('submit', (event) => {
+      this.dom.submitForm.addEventListener('submit', (event) => {
          this.submitBook(library)
       });
 
-      this.cacheDom().table.addEventListener('click', (event) => {
+      this.dom.table.addEventListener('click', (event) => {
 
          this.changeBookProps(library);
       }
