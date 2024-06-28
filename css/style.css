@@ -56,8 +56,8 @@ body {
 
 [class*=__container] {
   max-width: 1440px;
-  padding-left: clamp(1rem, 6vw, 6rem);
-  padding-right: clamp(1rem, 6vw, 6rem);
+  padding-left: clamp(1rem, 5vw, 6rem);
+  padding-right: clamp(1rem, 5vw, 6rem);
   margin: 0 auto;
 }
 

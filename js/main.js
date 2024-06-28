@@ -2,14 +2,19 @@
 class Library {
 
    #booksList = [];
-   #booksCounter = 1;
+   #booksCounter = 5;
 
    getBooksList() {
-      console.log("#booksList:", this.#booksList);
+      //console.log("#booksList:", this.#booksList);
       return this.#booksList;
    }
 
+   getBooksCounter() {
+      return this.#booksCounter++;
+   }
+
    addBookToLibrary(book) {
+      console.log('book приехала в библиотеку:', book);
       this.#booksList.push(book);
       this.sendBooksListToScreen();
    }
@@ -66,8 +71,9 @@ class Library {
 }
 
 class Book {
-   constructor(author, title, genre, pages, read) {
-      this.author = author,
+   constructor(id, author, title, genre, pages, read) {
+      this.id = id,
+         this.author = author,
          this.title = title,
          this.genre = genre,
          this.pages = pages,
@@ -128,29 +134,75 @@ class ScreenController {
       const buttonPopupOn = document.querySelector('.suggest-page__btn');
       const popup = document.querySelector('.popup');
       const sortSelection = document.querySelector('#sort-selection');
+      const submitForm = popup.querySelector('.popup__form');
 
       return {
          table,
          currentRenderedBooksList,
          popup,
          buttonPopupOn,
-         sortSelection
+         sortSelection,
+         submitForm
       }
    }
 
 
    static bindEvents(library) {
-      this.cacheDom().popup.addEventListener('click', console.log('hoe-ya'));
-      this.cacheDom().buttonPopupOn.addEventListener('click', this.popupOn);
+      this.cacheDom().buttonPopupOn.addEventListener('click', (event) => {
+         console.log('form:', this.cacheDom().submitForm);
+         this.cacheDom().submitForm.reset();
+         this.popupOn();
+      });
       this.cacheDom().sortSelection.addEventListener('change', library.sortBooksList);
+      this.cacheDom().submitForm.addEventListener('submit', (event) => {
+         this.submitBook(library)
+      });
+      this.cacheDom().table.addEventListener('click', library.removeBook);
    }
 
    static popupOn(event) {
-      console.log(this);
+      //console.log(this);
 
       ScreenController.cacheDom().popup.classList.add('active');
 
-      ScreenController.cacheDom().popup.classList.contains('active');
+      if (ScreenController.cacheDom().popup.classList.contains('active')) {
+         ScreenController.cacheDom().popup.addEventListener('click', (event) => {
+
+            console.log(event.target.classList.contains('active'));
+
+            if (event.target.classList.contains('active') || event.target.id === 'add-button') {
+               ScreenController.cacheDom().popup.classList.remove('active');
+            }
+         })
+      };
+   }
+
+   static submitBook(library) {
+
+      // console.log('library:', library);
+
+      event.preventDefault();
+
+      // console.log('event:', event);
+
+      const id = library.getBooksCounter();
+
+      console.log('id', id);
+
+      const authorInput = document.querySelector('#author').value;
+      const titleInput = document.querySelector('#title').value;
+      const genreInput = document.querySelector('#genre').value;
+      const pagesInput = document.querySelector('#pages').value;
+      const readInput = document.querySelector('#read').value;
+
+
+
+      const book = new Book(id, authorInput, titleInput, genreInput, pagesInput, readInput);
+
+      console.log('book поехала в библиотеку:', book);
+
+      library.addBookToLibrary(book);
+
    }
 
    static resetTable() {
@@ -191,7 +243,7 @@ class ScreenController {
                <option value="no" ${selectedRead}>no</option>   
             </select>
             <div class="body-page__item body-page--right-align body-page__item--delete" id="book-${book.id}">
-               <button title="Delete" onclick="removeBook(event)" data-book="${book.id}">
+               <button title="Delete" data-book="${book.id}" id="delete-book">
                   x
                </button>
             </div>   

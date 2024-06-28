@@ -27,12 +27,7 @@
                   <button class="suggest-page__btn btn" type="button">Add book</button>
                </div>
                <div class="header-page__control">
-                  <!-- <div class="header-page__view">
-                     <select name="view" id="" title="Choose the view of the table">
-                        <option value="rows" selected>List</option>
-                        <option value="cars">Cards</option>
-                     </select>
-                  </div> -->
+
                   <div class="header-page__sort">
                      <select name="sort" id="sort-selection" title="Choose the type of sort">
                         <option value="id" selected>Id</option>
@@ -59,7 +54,7 @@
             </div>
       </main>
       <div class="popup">
-         <form action="" class="popup__form" onsubmit="submitBook(event); this.reset(); return false;">
+         <form action="" class="popup__form">
             <fieldset>
                <legend>What book do you want to add to?</legend>
                <label for="author">
@@ -86,7 +81,7 @@
                   </select>
                </label>
             </fieldset>
-            <button type="submit" class="btn" onclick="" id="add-button">Submit</button>
+            <button type="submit" class="btn" id="add-button">Submit</button>
          </form>
       </div>
    </div>
