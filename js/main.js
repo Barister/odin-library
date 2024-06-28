@@ -14,13 +14,37 @@ class Library {
    }
 
    addBookToLibrary(book) {
-      console.log('book приехала в библиотеку:', book);
+      // console.log('book приехала в библиотеку:', book);
       this.#booksList.push(book);
       this.sendBooksListToScreen();
    }
 
-   removeBook(book) {
-      this.#booksList.filter((book) => book.id !== this.book.id);
+   removeBook(id) {
+
+      this.#booksList = this.#booksList.filter((book) => book.id !== id);
+
+      this.sendBooksListToScreen();
+   }
+
+   changeRead(id, read) {
+
+      console.log('id:', id, 'read:', read);
+
+      this.#booksList = this.#booksList.map((book) => {
+
+         if (book.id === id) {
+            console.log('yes, book found!');
+            console.log('book.read', book.read);
+            book.read = read;
+         }
+
+         return book;
+
+      });
+
+      console.log('this.#booksList', this.#booksList);
+
+      this.sendBooksListToScreen();
    }
 
    sendBooksListToScreen() {
@@ -61,7 +85,7 @@ class Library {
 
       });
 
-      console.log('sort клац-клац ', this.#booksList);
+      // console.log('sort клац-клац ', this.#booksList);
 
       ScreenController.renderTable(this.#booksList);
 
@@ -80,11 +104,11 @@ class Book {
          this.read = read
    }
 
-   changeRead(read) {
-      if (this.read !== read) {
-         this.read = read;
-      }
-   }
+   // changeRead(read) {
+   //    if (this.read !== read) {
+   //       this.read = read;
+   //    }
+   // }
 
 
 
@@ -135,6 +159,9 @@ class ScreenController {
       const popup = document.querySelector('.popup');
       const sortSelection = document.querySelector('#sort-selection');
       const submitForm = popup.querySelector('.popup__form');
+      // const removeButtons = document.querySelectorAll('.body-page__item--delete');
+
+      //console.log('removeButtons', removeButtons);
 
       return {
          table,
@@ -142,22 +169,45 @@ class ScreenController {
          popup,
          buttonPopupOn,
          sortSelection,
-         submitForm
+         submitForm,
+         // removeButtons
       }
    }
 
 
    static bindEvents(library) {
+
       this.cacheDom().buttonPopupOn.addEventListener('click', (event) => {
          console.log('form:', this.cacheDom().submitForm);
          this.cacheDom().submitForm.reset();
          this.popupOn();
       });
+
       this.cacheDom().sortSelection.addEventListener('change', library.sortBooksList);
+
       this.cacheDom().submitForm.addEventListener('submit', (event) => {
          this.submitBook(library)
       });
-      this.cacheDom().table.addEventListener('click', library.removeBook);
+
+      this.cacheDom().table.addEventListener('click', (event) => {
+
+         this.changeBookProps(library);
+      }
+      )
+   }
+
+   static changeBookProps(library) {
+      console.log(event.target.closest.dataset);
+      if (event.target.closest('.body-page__item--delete')) {
+         let id = parseInt(event.target.dataset.book);
+         // console.log('click по крестику');
+         library.removeBook(id);
+      } else if (event.target.dataset.item === 'read') {
+         let changedId = event.target;
+         console.log(event.target);
+         changedId.addEventListener('change', (event) => { library.changeRead(parseInt(event.target.dataset.book), event.target.value) })
+            ;
+      }
    }
 
    static popupOn(event) {
@@ -168,7 +218,7 @@ class ScreenController {
       if (ScreenController.cacheDom().popup.classList.contains('active')) {
          ScreenController.cacheDom().popup.addEventListener('click', (event) => {
 
-            console.log(event.target.classList.contains('active'));
+            //console.log(event.target.classList.contains('active'));
 
             if (event.target.classList.contains('active') || event.target.id === 'add-button') {
                ScreenController.cacheDom().popup.classList.remove('active');
@@ -199,7 +249,7 @@ class ScreenController {
 
       const book = new Book(id, authorInput, titleInput, genreInput, pagesInput, readInput);
 
-      console.log('book поехала в библиотеку:', book);
+      // console.log('book поехала в библиотеку:', book);
 
       library.addBookToLibrary(book);
 
@@ -228,6 +278,8 @@ class ScreenController {
 
          let selectedRead = '';
 
+         //console.log('book', book);
+
          if (book.read === 'no') {
             selectedRead = 'selected';
          }
@@ -238,12 +290,12 @@ class ScreenController {
             <div class="body-page__item" data-item="title" id="book-${book.id}">${book.title}</div>
             <div class="body-page__item" data-item="genre" id="book-${book.id}">${book.genre}</div>
             <div class="body-page__item body-page--right-align" data-item="pages" id="book-${book.id}">${book.pages}</div>
-            <select class="body-page__item body-page--right-align" data-item="read" id="book-${book.id}" onchange="changeRead(event)" title="Did you read it yet?">
+            <select class="body-page__item body-page--right-align" data-book="${book.id}" data-item="read" id="book-${book.id}" title="Did you read it yet?">
                <option value="yes" selected>yes</option>
                <option value="no" ${selectedRead}>no</option>   
             </select>
             <div class="body-page__item body-page--right-align body-page__item--delete" id="book-${book.id}">
-               <button title="Delete" data-book="${book.id}" id="delete-book">
+               <button title="Delete" data-book="${book.id}">
                   x
                </button>
             </div>   
